@@ -1,42 +1,223 @@
--- Seed data to be replaced by AIW
-INSERT INTO room (room_number, price_per_night, room_type, room_status) VALUES 
-('101', 1200.00, 'Single', 'Available'),
-('102', 1200.00, 'Single', 'Occupied'),
-('201', 2500.00, 'Double', 'Available'),
-('301', 5000.00, 'VIP Suite', 'Available');
+-- =====================================================================
+-- seed.sql : Sample data (ภาษาไทย) สำหรับ schema.sql (MySQL)
+-- รันหลัง schema.sql   ->   mysql -u <user> -p <database> < seed.sql
+-- รันซ้ำได้: TRUNCATE ทุกตารางก่อน (ข้อมูลเดิมจะหาย และ AUTO_INCREMENT เริ่มที่ 1 ใหม่)
+-- ข้อมูลอ้างอิงวันที่ปัจจุบัน 2026-09-28
+-- =====================================================================
 
--- Insert Guests
-INSERT INTO guest (first_name, last_name, phone_number, email, preferred_room_type, house_number, street, district, sub_district, province) VALUES 
-('Somchai', 'Jaidee', '0812345678', 'somchai@example.com', 'Single', '99/1', 'Nimman Road', 'Muang', 'Suthep', 'Chiang Mai'),
-('Jane', 'Doe', '0898765432', 'jane@example.com', 'VIP Suite', '45', 'Charoen Prathet', 'Muang', 'Pha Sing', 'Chiang Mai');
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE billing;
+TRUNCATE TABLE payment;
+TRUNCATE TABLE housekeeping_log;
+TRUNCATE TABLE service;
+TRUNCATE TABLE booking_room;
+TRUNCATE TABLE booking;
+TRUNCATE TABLE room;
+TRUNCATE TABLE guest;
+TRUNCATE TABLE receptionist;
+TRUNCATE TABLE housekeeper;
+TRUNCATE TABLE manager;
+TRUNCATE TABLE employee;
+SET FOREIGN_KEY_CHECKS = 1;
 
--- Insert Employees (Supertype)
-INSERT INTO employee (first_name, last_name, phone_number, email, house_number, street, district, sub_district, province, title) VALUES 
-('Anan', 'Vong', '0821112233', 'anan.m@lannadoi.com', '12', 'Huay Kaew', 'Muang', 'Suthep', 'Chiang Mai', 'Manager'),
-('Mali', 'Sri', '0834445566', 'mali.r@lannadoi.com', '88', 'Chang Phueak', 'Muang', 'Chang Phueak', 'Chiang Mai', 'Receptionist'),
-('Daeng', 'Kong', '0847778899', 'daeng.h@lannadoi.com', '23/4', 'Mahidol', 'Muang', 'Hae Kaeo', 'Chiang Mai', 'Housekeeper');
 
--- Insert Employee Subtypes (Must reference existing employee_ids)
-INSERT INTO manager (employee_id) VALUES (1);
-INSERT INTO receptionist (employee_id) VALUES (2);
-INSERT INTO housekeeper (employee_id) VALUES (3);
+-- 1) employee (title = Manager / Receptionist / Housekeeper)
+INSERT INTO employee (employee_id, first_name, last_name, phone_number, email, house_number, street, district, sub_district, province, title) VALUES
+(1, 'สมชาย', 'ใจดี', '081-234-5601', 'somchai.j@lannagrand.co.th', '88/1', 'นิมมานเหมินท์', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่', 'Manager'),
+(2, 'วิภา', 'รัตนากร', '081-234-5602', 'wipa.r@lannagrand.co.th', '15', 'ห้วยแก้ว', 'เมืองเชียงใหม่', 'ช้างเผือก', 'เชียงใหม่', 'Manager'),
+(3, 'ปรีชา', 'สุขสม', '082-345-6703', 'preecha.s@lannagrand.co.th', '102', 'สุเทพ', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่', 'Receptionist'),
+(4, 'นภา', 'แก้วมณี', '082-345-6704', 'napa.k@lannagrand.co.th', '45/2', 'เจริญเมือง', 'เมืองเชียงใหม่', 'วัดเกต', 'เชียงใหม่', 'Receptionist'),
+(5, 'กิตติ', 'วงศ์ษา', '083-456-7805', 'kitti.w@lannagrand.co.th', '7', 'มหิดล', 'เมืองเชียงใหม่', 'หายยา', 'เชียงใหม่', 'Receptionist'),
+(6, 'พิมพ์ชนก', 'ศรีสุข', '083-456-7806', 'pimchanok.s@lannagrand.co.th', '233', 'เชียงใหม่-ลำปาง', 'เมืองเชียงใหม่', 'ช้างม่อย', 'เชียงใหม่', 'Receptionist'),
+(7, 'ธนากร', 'ปัญญาดี', '084-567-8907', 'thanakorn.p@lannagrand.co.th', '59/4', 'ท่าแพ', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่', 'Receptionist'),
+(8, 'สมศรี', 'บุญมา', '085-678-9008', 'somsri.b@lannagrand.co.th', '12/3', 'สันทราย-พร้าว', 'สันทราย', 'หนองหาร', 'เชียงใหม่', 'Housekeeper'),
+(9, 'บุญเลิศ', 'คำแก้ว', '085-678-9009', 'boonlert.k@lannagrand.co.th', '76', 'เชียงใหม่-หางดง', 'หางดง', 'หางดง', 'เชียงใหม่', 'Housekeeper'),
+(10, 'จันทร์เพ็ญ', 'ทองดี', '086-789-0110', 'chanpen.t@lannagrand.co.th', '9/5', 'สารภี-ดอนแก้ว', 'สารภี', 'ยางเนิ้ง', 'เชียงใหม่', 'Housekeeper'),
+(11, 'สุรีย์', 'ใจวงศ์', '086-789-0111', 'suree.j@lannagrand.co.th', '301', 'แม่ริม-สะเมิง', 'แม่ริม', 'ริมใต้', 'เชียงใหม่', 'Housekeeper'),
+(12, 'อรทัย', 'สายสิงห์', '087-890-1212', 'orathai.s@lannagrand.co.th', '18', 'ช้างคลาน', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่', 'Housekeeper'),
+(13, 'มานพ', 'ขัติยะ', '087-890-1213', 'manop.k@lannagrand.co.th', '64/7', 'โชตนา', 'เมืองเชียงใหม่', 'ช้างเผือก', 'เชียงใหม่', 'Housekeeper'),
+(14, 'ลำดวน', 'อินทะ', '088-901-2314', 'lamduan.i@lannagrand.co.th', '5', 'ซูเปอร์ไฮเวย์', 'เมืองเชียงใหม่', 'ฟ้าฮ่าม', 'เชียงใหม่', 'Housekeeper'),
+(15, 'วราภรณ์', 'ปันสอน', '088-901-2315', 'waraporn.p@lannagrand.co.th', '140/2', 'แม่โจ้-พร้าว', 'สันทราย', 'หนองจ๊อม', 'เชียงใหม่', 'Housekeeper');
 
--- Insert Booking (Processed by receptionist ID 2, for guest ID 1)
-INSERT INTO booking (check_in_date, check_out_date, total_amount, booking_status, payment_status, guest_id, employee_id) VALUES 
-('2026-10-01', '2026-10-03', 2400.00, 'Confirmed', 'Paid', 1, 2);
+-- 2) subtype ของ employee
+INSERT INTO manager (employee_id) VALUES (1), (2);
+INSERT INTO receptionist (employee_id) VALUES (3), (4), (5), (6), (7);
+INSERT INTO housekeeper (employee_id) VALUES (8), (9), (10), (11), (12), (13), (14), (15);
 
--- Link Booking to Room via Associative Entity
-INSERT INTO booking_room (rate_charged, booking_id, room_id) VALUES 
-(1200.00, 1, 1);
+-- 3) guest
+INSERT INTO guest (guest_id, first_name, last_name, phone_number, email, preferred_room_type, house_number, street, district, sub_district, province) VALUES
+(1, 'อนุชา', 'พงษ์ไพบูลย์', '089-111-2201', 'anucha.p@example.com', 'Standard', '25/8', 'สุขุมวิท', 'วัฒนา', 'คลองตันเหนือ', 'กรุงเทพมหานคร'),
+(2, 'สุดารัตน์', 'มั่นคง', '089-111-2202', 'sudarat.m@example.com', 'Deluxe', '112', 'รัชดาภิเษก', 'ดินแดง', 'ดินแดง', 'กรุงเทพมหานคร'),
+(3, 'ประเสริฐ', 'วงศ์สวัสดิ์', '089-111-2203', 'prasert.w@example.com', 'Family', '9/1', 'นิมมานเหมินท์', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่'),
+(4, 'ชลธิชา', 'เกษมสุข', '089-111-2204', 'chonticha.k@example.com', 'Standard', '77', 'มิตรภาพ', 'เมืองขอนแก่น', 'ในเมือง', 'ขอนแก่น'),
+(5, 'ธีรพงษ์', 'สุวรรณชาติ', '089-111-2205', 'teerapong.s@example.com', 'Suite', '3/12', 'พระราม 4', 'คลองเตย', 'คลองเตย', 'กรุงเทพมหานคร'),
+(6, 'กมลวรรณ', 'ศรีอุดม', '089-111-2206', 'kamonwan.s@example.com', 'Deluxe', '58', 'ถนนคนเดิน', 'เมืองภูเก็ต', 'ตลาดใหญ่', 'ภูเก็ต'),
+(7, 'วีระ', 'ทองหล่อ', '089-111-2207', 'weera.t@example.com', 'Standard', '190/4', 'สีลม', 'บางรัก', 'สีลม', 'กรุงเทพมหานคร'),
+(8, 'นันทนา', 'จิตต์เจริญ', '089-111-2208', 'nantana.j@example.com', 'Deluxe', '21', 'ท่าแพ', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่'),
+(9, 'ศักดิ์ชัย', 'บุญเรือง', '089-111-2209', 'sakchai.b@example.com', 'Family', '45', 'ถนนเพชรเกษม', 'หาดใหญ่', 'หาดใหญ่', 'สงขลา'),
+(10, 'พรทิพย์', 'อัครเดช', '089-111-2210', 'pornthip.a@example.com', 'Suite', '8', 'ลาดพร้าว', 'จตุจักร', 'จอมพล', 'กรุงเทพมหานคร'),
+(11, 'สุเมธ', 'ใจสะอาด', '089-111-2211', 'sumet.j@example.com', 'Standard', '132', 'เจริญกรุง', 'บางคอแหลม', 'บางคอแหลม', 'กรุงเทพมหานคร'),
+(12, 'รัตนา', 'พูนสิน', '089-111-2212', 'rattana.p@example.com', 'Deluxe', '67/3', 'ช้างคลาน', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่'),
+(13, 'ณัฐวุฒิ', 'เพชรรัตน์', '089-111-2213', 'nattawut.p@example.com', 'Family', '14', 'ราชดำเนิน', 'พระนคร', 'บวรนิเวศ', 'กรุงเทพมหานคร'),
+(14, 'อรอนงค์', 'สินธุพันธ์', '089-111-2214', 'onanong.s@example.com', 'Suite', '301', 'มหาราช', 'เมืองนครราชสีมา', 'ในเมือง', 'นครราชสีมา'),
+(15, 'ภานุพงศ์', 'คงเจริญ', '089-111-2215', 'panupong.k@example.com', 'Deluxe', '5/6', 'แจ้งวัฒนะ', 'ปากเกร็ด', 'บางพูด', 'นนทบุรี'),
+(16, 'มาลี', 'สิริวัฒน์', '089-111-2216', 'malee.s@example.com', 'Standard', '99', 'ถนนคนเดินท่าแพ', 'เมืองเชียงราย', 'เวียง', 'เชียงราย'),
+(17, 'ไกรสร', 'ภูมิพัฒน์', '089-111-2217', 'kraisorn.p@example.com', 'Suite', '2', 'วิภาวดีรังสิต', 'หลักสี่', 'ทุ่งสองห้อง', 'กรุงเทพมหานคร'),
+(18, 'ปิยะนุช', 'ชัยมงคล', '089-111-2218', 'piyanuch.c@example.com', 'Family', '73/9', 'ทางหลวง 304', 'เมืองปราจีนบุรี', 'หน้าเมือง', 'ปราจีนบุรี'),
+(19, 'เจษฎา', 'อินทรวงศ์', '089-111-2219', 'jesada.i@example.com', 'Suite', '40', 'พัทยากลาง', 'บางละมุง', 'หนองปรือ', 'ชลบุรี'),
+(20, 'สิริพร', 'มณีรัตน์', '089-111-2220', 'siriporn.m@example.com', 'Standard', '18/2', 'ประชาสำราญ', 'เมืองอุดรธานี', 'หมากแข้ง', 'อุดรธานี');
 
--- Insert Payment Record
-INSERT INTO payment (payment_date, payment_method, amount, booking_id) VALUES 
-('2026-10-01', 'Credit Card', 2400.00, 1);
+-- 4) room (room_status: Available / Occupied / Maintenance / Cleaning)
+INSERT INTO room (room_id, room_number, price_per_night, room_type, room_status) VALUES
+(1, '101', 1200.00, 'Standard', 'Occupied'),
+(2, '102', 1200.00, 'Standard', 'Available'),
+(3, '103', 1200.00, 'Standard', 'Available'),
+(4, '104', 1200.00, 'Standard', 'Available'),
+(5, '105', 1200.00, 'Standard', 'Available'),
+(6, '201', 1800.00, 'Deluxe', 'Occupied'),
+(7, '202', 1800.00, 'Deluxe', 'Occupied'),
+(8, '203', 1800.00, 'Deluxe', 'Available'),
+(9, '204', 1800.00, 'Deluxe', 'Available'),
+(10, '205', 1800.00, 'Deluxe', 'Cleaning'),
+(11, '301', 2500.00, 'Family', 'Available'),
+(12, '302', 2500.00, 'Family', 'Maintenance'),
+(13, '303', 2500.00, 'Family', 'Occupied'),
+(14, '304', 2500.00, 'Family', 'Available'),
+(15, '401', 3500.00, 'Suite', 'Available'),
+(16, '402', 3500.00, 'Suite', 'Available'),
+(17, '403', 3500.00, 'Suite', 'Occupied'),
+(18, '404', 3500.00, 'Suite', 'Maintenance'),
+(19, '501', 5500.00, 'Suite', 'Available'),
+(20, '502', 5500.00, 'Suite', 'Available');
 
--- Insert Billing Snapshot (1-to-1 optional relationship)
-INSERT INTO billing (invoice_date, total_amount, booking_id) VALUES 
-('2026-10-03', 2400.00, 1);
+-- 5) booking (booking_status: Confirmed / Checked-In / Checked-Out / Cancelled | payment_status: Pending / Partial / Paid)
+INSERT INTO booking (booking_id, check_in_date, check_out_date, total_amount, booking_status, payment_status, guest_id, employee_id) VALUES
+(1, '2026-09-01', '2026-09-03', 2400.00, 'Checked-Out', 'Paid', 1, 3),
+(2, '2026-09-02', '2026-09-05', 5400.00, 'Checked-Out', 'Paid', 2, 4),
+(3, '2026-09-05', '2026-09-08', 7500.00, 'Checked-Out', 'Paid', 3, 3),
+(4, '2026-09-08', '2026-09-10', 4800.00, 'Checked-Out', 'Paid', 4, 5),
+(5, '2026-09-10', '2026-09-14', 14000.00, 'Checked-Out', 'Paid', 5, 6),
+(6, '2026-09-12', '2026-09-15', 5400.00, 'Checked-Out', 'Paid', 6, 7),
+(7, '2026-09-15', '2026-09-17', 2400.00, 'Checked-Out', 'Paid', 7, 3),
+(8, '2026-09-16', '2026-09-19', 10800.00, 'Checked-Out', 'Paid', 8, 4),
+(9, '2026-09-18', '2026-09-20', 5000.00, 'Cancelled', 'Pending', 9, 5),
+(10, '2026-09-20', '2026-09-23', 10500.00, 'Checked-Out', 'Paid', 10, 6),
+(11, '2026-09-22', '2026-09-25', 3600.00, 'Checked-Out', 'Paid', 11, 7),
+(12, '2026-09-24', '2026-09-27', 5400.00, 'Checked-Out', 'Paid', 12, 3),
+(13, '2026-09-25', '2026-09-29', 10000.00, 'Checked-In', 'Partial', 13, 4),
+(14, '2026-09-26', '2026-09-30', 14000.00, 'Checked-In', 'Paid', 14, 5),
+(15, '2026-09-27', '2026-09-29', 7200.00, 'Checked-In', 'Partial', 15, 6),
+(16, '2026-09-28', '2026-10-01', 3600.00, 'Checked-In', 'Pending', 16, 7),
+(17, '2026-10-03', '2026-10-06', 16500.00, 'Confirmed', 'Partial', 17, 3),
+(18, '2026-10-05', '2026-10-08', 18000.00, 'Confirmed', 'Pending', 18, 4),
+(19, '2026-10-10', '2026-10-12', 11000.00, 'Confirmed', 'Partial', 19, 5),
+(20, '2026-10-15', '2026-10-18', 10800.00, 'Confirmed', 'Pending', 20, 6);
 
--- Insert Housekeeping Log (Assigned to housekeeper ID 3)
-INSERT INTO housekeeping_log (`date`, status, room_id, employee_id) VALUES 
-('2026-10-01', 'Cleaned', 1, 3);
+-- 6) booking_room (การจองหลายห้อง: booking 4, 8, 15, 18, 20)
+INSERT INTO booking_room (booking_room_id, rate_charged, booking_id, room_id) VALUES
+(1, 1200.00, 1, 1),
+(2, 1800.00, 2, 6),
+(3, 2500.00, 3, 11),
+(4, 1200.00, 4, 2),
+(5, 1200.00, 4, 3),
+(6, 3500.00, 5, 15),
+(7, 1800.00, 6, 7),
+(8, 1200.00, 7, 4),
+(9, 1800.00, 8, 8),
+(10, 1800.00, 8, 9),
+(11, 2500.00, 9, 12),
+(12, 3500.00, 10, 16),
+(13, 1200.00, 11, 5),
+(14, 1800.00, 12, 10),
+(15, 2500.00, 13, 13),
+(16, 3500.00, 14, 17),
+(17, 1800.00, 15, 6),
+(18, 1800.00, 15, 7),
+(19, 1200.00, 16, 1),
+(20, 5500.00, 17, 19),
+(21, 2500.00, 18, 14),
+(22, 3500.00, 18, 15),
+(23, 5500.00, 19, 20),
+(24, 1200.00, 20, 2),
+(25, 1200.00, 20, 3),
+(26, 1200.00, 20, 4);
+
+-- 7) service
+INSERT INTO service (service_id, description, charged_amount, booking_id) VALUES
+(1, 'อาหารเช้าเพิ่ม 2 ที่', 300.00, 2),
+(2, 'บริการซักรีด', 250.00, 3),
+(3, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 5),
+(4, 'มินิบาร์', 450.00, 5),
+(5, 'นวดแผนไทย 1 ชั่วโมง x 2 ท่าน', 1200.00, 10),
+(6, 'บริการซักรีด', 180.00, 6),
+(7, 'อาหารเช้าเพิ่ม 2 ที่', 300.00, 8),
+(8, 'เตียงเสริม', 500.00, 4),
+(9, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 12),
+(10, 'มินิบาร์', 350.00, 13),
+(11, 'บริการซักรีด', 200.00, 14),
+(12, 'นวดแผนไทย 1 ชั่วโมง', 1000.00, 14),
+(13, 'อาหารเช้าเพิ่ม 4 ที่', 400.00, 15),
+(14, 'เช่ามอเตอร์ไซค์ 1 วัน', 300.00, 1),
+(15, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 11);
+
+-- 8) payment (payment_method: Credit Card / Cash / Bank Transfer / PromptPay)
+INSERT INTO payment (payment_id, payment_date, payment_method, amount, booking_id) VALUES
+(1, '2026-09-03 09:15:00', 'PromptPay', 2700.00, 1),
+(2, '2026-09-05 10:30:00', 'Credit Card', 5700.00, 2),
+(3, '2026-09-08 11:45:00', 'Cash', 7750.00, 3),
+(4, '2026-09-01 13:20:00', 'Bank Transfer', 2000.00, 4),
+(5, '2026-09-10 14:05:00', 'Cash', 3300.00, 4),
+(6, '2026-09-05 15:40:00', 'Credit Card', 5000.00, 5),
+(7, '2026-09-14 16:25:00', 'Credit Card', 10250.00, 5),
+(8, '2026-09-15 09:15:00', 'PromptPay', 5580.00, 6),
+(9, '2026-09-17 10:30:00', 'Cash', 2400.00, 7),
+(10, '2026-09-19 11:45:00', 'Credit Card', 11100.00, 8),
+(11, '2026-09-23 13:20:00', 'Credit Card', 11700.00, 10),
+(12, '2026-09-25 14:05:00', 'PromptPay', 4400.00, 11),
+(13, '2026-09-27 15:40:00', 'Cash', 6200.00, 12),
+(14, '2026-09-25 16:25:00', 'Bank Transfer', 5000.00, 13),
+(15, '2026-09-28 09:15:00', 'Credit Card', 15200.00, 14),
+(16, '2026-09-27 10:30:00', 'PromptPay', 3600.00, 15),
+(17, '2026-09-20 11:45:00', 'Bank Transfer', 5000.00, 17),
+(18, '2026-09-22 13:20:00', 'PromptPay', 3000.00, 19);
+
+-- 9) billing (1 การจอง : 1 ใบแจ้งหนี้ | total_amount = ค่าห้อง + ค่าบริการเสริม)
+INSERT INTO billing (billing_id, invoice_date, total_amount, booking_id) VALUES
+(1, '2026-09-03 11:45:00', 2700.00, 1),
+(2, '2026-09-05 13:20:00', 5700.00, 2),
+(3, '2026-09-08 14:05:00', 7750.00, 3),
+(4, '2026-09-10 15:40:00', 5300.00, 4),
+(5, '2026-09-14 16:25:00', 15250.00, 5),
+(6, '2026-09-15 09:15:00', 5580.00, 6),
+(7, '2026-09-17 10:30:00', 2400.00, 7),
+(8, '2026-09-19 11:45:00', 11100.00, 8),
+(9, '2026-09-23 13:20:00', 11700.00, 10),
+(10, '2026-09-25 14:05:00', 4400.00, 11),
+(11, '2026-09-27 15:40:00', 6200.00, 12),
+(12, '2026-09-28 16:25:00', 15200.00, 14),
+(13, '2026-09-28 09:15:00', 10350.00, 13),
+(14, '2026-09-28 10:30:00', 7600.00, 15);
+
+-- 10) housekeeping_log (status: Pending / In Progress / Completed / Inspected)
+INSERT INTO housekeeping_log (housekeeping_log_id, date, status, room_id, employee_id) VALUES
+(1, '2026-09-27', 'Completed', 1, 8),
+(2, '2026-09-27', 'Completed', 6, 9),
+(3, '2026-09-27', 'Completed', 7, 9),
+(4, '2026-09-27', 'Inspected', 13, 10),
+(5, '2026-09-27', 'Inspected', 17, 11),
+(6, '2026-09-27', 'Pending', 10, 12),
+(7, '2026-09-28', 'In Progress', 10, 12),
+(8, '2026-09-28', 'Completed', 2, 13),
+(9, '2026-09-28', 'Completed', 3, 13),
+(10, '2026-09-28', 'Inspected', 4, 14),
+(11, '2026-09-28', 'Pending', 8, 8),
+(12, '2026-09-28', 'Pending', 9, 10),
+(13, '2026-09-26', 'Completed', 16, 11),
+(14, '2026-09-26', 'Inspected', 5, 8),
+(15, '2026-09-25', 'Completed', 11, 15),
+(16, '2026-09-25', 'Inspected', 15, 14),
+(17, '2026-09-24', 'Completed', 8, 13),
+(18, '2026-09-24', 'Completed', 9, 13),
+(19, '2026-09-23', 'Inspected', 16, 9),
+(20, '2026-09-22', 'Completed', 5, 8);
