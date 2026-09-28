@@ -1,8 +1,9 @@
 -- =====================================================================
--- seed.sql : Sample data (ภาษาไทย) สำหรับ schema.sql (MySQL)
--- รันหลัง schema.sql   ->   mysql -u <user> -p <database> < seed.sql
--- รันซ้ำได้: TRUNCATE ทุกตารางก่อน (ข้อมูลเดิมจะหาย และ AUTO_INCREMENT เริ่มที่ 1 ใหม่)
--- ข้อมูลอ้างอิงวันที่ปัจจุบัน 2026-09-28
+-- seed.sql : Sample data (English) for schema.sql (MySQL)
+-- Run after schema.sql:   mysql -u <user> -p <database> < seed.sql
+-- Re-runnable: every table is truncated first (existing data is lost and
+-- AUTO_INCREMENT restarts at 1).
+-- Dates are relative to the current date, 2026-09-28.
 -- =====================================================================
 
 SET NAMES utf8mb4;
@@ -24,49 +25,49 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- 1) employee (title = Manager / Receptionist / Housekeeper)
 INSERT INTO employee (employee_id, first_name, last_name, phone_number, email, house_number, street, district, sub_district, province, title) VALUES
-(1, 'สมชาย', 'ใจดี', '081-234-5601', 'somchai.j@lannagrand.co.th', '88/1', 'นิมมานเหมินท์', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่', 'Manager'),
-(2, 'วิภา', 'รัตนากร', '081-234-5602', 'wipa.r@lannagrand.co.th', '15', 'ห้วยแก้ว', 'เมืองเชียงใหม่', 'ช้างเผือก', 'เชียงใหม่', 'Manager'),
-(3, 'ปรีชา', 'สุขสม', '082-345-6703', 'preecha.s@lannagrand.co.th', '102', 'สุเทพ', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่', 'Receptionist'),
-(4, 'นภา', 'แก้วมณี', '082-345-6704', 'napa.k@lannagrand.co.th', '45/2', 'เจริญเมือง', 'เมืองเชียงใหม่', 'วัดเกต', 'เชียงใหม่', 'Receptionist'),
-(5, 'กิตติ', 'วงศ์ษา', '083-456-7805', 'kitti.w@lannagrand.co.th', '7', 'มหิดล', 'เมืองเชียงใหม่', 'หายยา', 'เชียงใหม่', 'Receptionist'),
-(6, 'พิมพ์ชนก', 'ศรีสุข', '083-456-7806', 'pimchanok.s@lannagrand.co.th', '233', 'เชียงใหม่-ลำปาง', 'เมืองเชียงใหม่', 'ช้างม่อย', 'เชียงใหม่', 'Receptionist'),
-(7, 'ธนากร', 'ปัญญาดี', '084-567-8907', 'thanakorn.p@lannagrand.co.th', '59/4', 'ท่าแพ', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่', 'Receptionist'),
-(8, 'สมศรี', 'บุญมา', '085-678-9008', 'somsri.b@lannagrand.co.th', '12/3', 'สันทราย-พร้าว', 'สันทราย', 'หนองหาร', 'เชียงใหม่', 'Housekeeper'),
-(9, 'บุญเลิศ', 'คำแก้ว', '085-678-9009', 'boonlert.k@lannagrand.co.th', '76', 'เชียงใหม่-หางดง', 'หางดง', 'หางดง', 'เชียงใหม่', 'Housekeeper'),
-(10, 'จันทร์เพ็ญ', 'ทองดี', '086-789-0110', 'chanpen.t@lannagrand.co.th', '9/5', 'สารภี-ดอนแก้ว', 'สารภี', 'ยางเนิ้ง', 'เชียงใหม่', 'Housekeeper'),
-(11, 'สุรีย์', 'ใจวงศ์', '086-789-0111', 'suree.j@lannagrand.co.th', '301', 'แม่ริม-สะเมิง', 'แม่ริม', 'ริมใต้', 'เชียงใหม่', 'Housekeeper'),
-(12, 'อรทัย', 'สายสิงห์', '087-890-1212', 'orathai.s@lannagrand.co.th', '18', 'ช้างคลาน', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่', 'Housekeeper'),
-(13, 'มานพ', 'ขัติยะ', '087-890-1213', 'manop.k@lannagrand.co.th', '64/7', 'โชตนา', 'เมืองเชียงใหม่', 'ช้างเผือก', 'เชียงใหม่', 'Housekeeper'),
-(14, 'ลำดวน', 'อินทะ', '088-901-2314', 'lamduan.i@lannagrand.co.th', '5', 'ซูเปอร์ไฮเวย์', 'เมืองเชียงใหม่', 'ฟ้าฮ่าม', 'เชียงใหม่', 'Housekeeper'),
-(15, 'วราภรณ์', 'ปันสอน', '088-901-2315', 'waraporn.p@lannagrand.co.th', '140/2', 'แม่โจ้-พร้าว', 'สันทราย', 'หนองจ๊อม', 'เชียงใหม่', 'Housekeeper');
+(1, 'Somchai', 'Jaidee', '081-234-5601', 'somchai.j@lannagrand.co.th', '88/1', 'Nimmanhaemin', 'Mueang Chiang Mai', 'Suthep', 'Chiang Mai', 'Manager'),
+(2, 'Wipa', 'Rattanakorn', '081-234-5602', 'wipa.r@lannagrand.co.th', '15', 'Huay Kaew', 'Mueang Chiang Mai', 'Chang Phueak', 'Chiang Mai', 'Manager'),
+(3, 'Preecha', 'Suksom', '082-345-6703', 'preecha.s@lannagrand.co.th', '102', 'Suthep', 'Mueang Chiang Mai', 'Suthep', 'Chiang Mai', 'Receptionist'),
+(4, 'Napa', 'Kaewmanee', '082-345-6704', 'napa.k@lannagrand.co.th', '45/2', 'Charoen Muang', 'Mueang Chiang Mai', 'Wat Ket', 'Chiang Mai', 'Receptionist'),
+(5, 'Kitti', 'Wongsa', '083-456-7805', 'kitti.w@lannagrand.co.th', '7', 'Mahidol', 'Mueang Chiang Mai', 'Hai Ya', 'Chiang Mai', 'Receptionist'),
+(6, 'Pimchanok', 'Srisuk', '083-456-7806', 'pimchanok.s@lannagrand.co.th', '233', 'Chiang Mai-Lampang', 'Mueang Chiang Mai', 'Chang Moi', 'Chiang Mai', 'Receptionist'),
+(7, 'Thanakorn', 'Panyadee', '084-567-8907', 'thanakorn.p@lannagrand.co.th', '59/4', 'Tha Phae', 'Mueang Chiang Mai', 'Chang Khlan', 'Chiang Mai', 'Receptionist'),
+(8, 'Somsri', 'Boonma', '085-678-9008', 'somsri.b@lannagrand.co.th', '12/3', 'San Sai-Phrao', 'San Sai', 'Nong Han', 'Chiang Mai', 'Housekeeper'),
+(9, 'Boonlert', 'Khamkaew', '085-678-9009', 'boonlert.k@lannagrand.co.th', '76', 'Chiang Mai-Hang Dong', 'Hang Dong', 'Hang Dong', 'Chiang Mai', 'Housekeeper'),
+(10, 'Chanpen', 'Thongdee', '086-789-0110', 'chanpen.t@lannagrand.co.th', '9/5', 'Saraphi-Don Kaeo', 'Saraphi', 'Yang Noeng', 'Chiang Mai', 'Housekeeper'),
+(11, 'Suree', 'Jaiwong', '086-789-0111', 'suree.j@lannagrand.co.th', '301', 'Mae Rim-Samoeng', 'Mae Rim', 'Rim Tai', 'Chiang Mai', 'Housekeeper'),
+(12, 'Orathai', 'Saising', '087-890-1212', 'orathai.s@lannagrand.co.th', '18', 'Chang Khlan', 'Mueang Chiang Mai', 'Chang Khlan', 'Chiang Mai', 'Housekeeper'),
+(13, 'Manop', 'Khattiya', '087-890-1213', 'manop.k@lannagrand.co.th', '64/7', 'Chotana', 'Mueang Chiang Mai', 'Chang Phueak', 'Chiang Mai', 'Housekeeper'),
+(14, 'Lamduan', 'Intha', '088-901-2314', 'lamduan.i@lannagrand.co.th', '5', 'Super Highway', 'Mueang Chiang Mai', 'Fa Ham', 'Chiang Mai', 'Housekeeper'),
+(15, 'Waraporn', 'Pansorn', '088-901-2315', 'waraporn.p@lannagrand.co.th', '140/2', 'Maejo-Phrao', 'San Sai', 'Nong Chom', 'Chiang Mai', 'Housekeeper');
 
--- 2) subtype ของ employee
+-- 2) employee subtypes
 INSERT INTO manager (employee_id) VALUES (1), (2);
 INSERT INTO receptionist (employee_id) VALUES (3), (4), (5), (6), (7);
 INSERT INTO housekeeper (employee_id) VALUES (8), (9), (10), (11), (12), (13), (14), (15);
 
 -- 3) guest
 INSERT INTO guest (guest_id, first_name, last_name, phone_number, email, preferred_room_type, house_number, street, district, sub_district, province) VALUES
-(1, 'อนุชา', 'พงษ์ไพบูลย์', '089-111-2201', 'anucha.p@example.com', 'Standard', '25/8', 'สุขุมวิท', 'วัฒนา', 'คลองตันเหนือ', 'กรุงเทพมหานคร'),
-(2, 'สุดารัตน์', 'มั่นคง', '089-111-2202', 'sudarat.m@example.com', 'Deluxe', '112', 'รัชดาภิเษก', 'ดินแดง', 'ดินแดง', 'กรุงเทพมหานคร'),
-(3, 'ประเสริฐ', 'วงศ์สวัสดิ์', '089-111-2203', 'prasert.w@example.com', 'Family', '9/1', 'นิมมานเหมินท์', 'เมืองเชียงใหม่', 'สุเทพ', 'เชียงใหม่'),
-(4, 'ชลธิชา', 'เกษมสุข', '089-111-2204', 'chonticha.k@example.com', 'Standard', '77', 'มิตรภาพ', 'เมืองขอนแก่น', 'ในเมือง', 'ขอนแก่น'),
-(5, 'ธีรพงษ์', 'สุวรรณชาติ', '089-111-2205', 'teerapong.s@example.com', 'Suite', '3/12', 'พระราม 4', 'คลองเตย', 'คลองเตย', 'กรุงเทพมหานคร'),
-(6, 'กมลวรรณ', 'ศรีอุดม', '089-111-2206', 'kamonwan.s@example.com', 'Deluxe', '58', 'ถนนคนเดิน', 'เมืองภูเก็ต', 'ตลาดใหญ่', 'ภูเก็ต'),
-(7, 'วีระ', 'ทองหล่อ', '089-111-2207', 'weera.t@example.com', 'Standard', '190/4', 'สีลม', 'บางรัก', 'สีลม', 'กรุงเทพมหานคร'),
-(8, 'นันทนา', 'จิตต์เจริญ', '089-111-2208', 'nantana.j@example.com', 'Deluxe', '21', 'ท่าแพ', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่'),
-(9, 'ศักดิ์ชัย', 'บุญเรือง', '089-111-2209', 'sakchai.b@example.com', 'Family', '45', 'ถนนเพชรเกษม', 'หาดใหญ่', 'หาดใหญ่', 'สงขลา'),
-(10, 'พรทิพย์', 'อัครเดช', '089-111-2210', 'pornthip.a@example.com', 'Suite', '8', 'ลาดพร้าว', 'จตุจักร', 'จอมพล', 'กรุงเทพมหานคร'),
-(11, 'สุเมธ', 'ใจสะอาด', '089-111-2211', 'sumet.j@example.com', 'Standard', '132', 'เจริญกรุง', 'บางคอแหลม', 'บางคอแหลม', 'กรุงเทพมหานคร'),
-(12, 'รัตนา', 'พูนสิน', '089-111-2212', 'rattana.p@example.com', 'Deluxe', '67/3', 'ช้างคลาน', 'เมืองเชียงใหม่', 'ช้างคลาน', 'เชียงใหม่'),
-(13, 'ณัฐวุฒิ', 'เพชรรัตน์', '089-111-2213', 'nattawut.p@example.com', 'Family', '14', 'ราชดำเนิน', 'พระนคร', 'บวรนิเวศ', 'กรุงเทพมหานคร'),
-(14, 'อรอนงค์', 'สินธุพันธ์', '089-111-2214', 'onanong.s@example.com', 'Suite', '301', 'มหาราช', 'เมืองนครราชสีมา', 'ในเมือง', 'นครราชสีมา'),
-(15, 'ภานุพงศ์', 'คงเจริญ', '089-111-2215', 'panupong.k@example.com', 'Deluxe', '5/6', 'แจ้งวัฒนะ', 'ปากเกร็ด', 'บางพูด', 'นนทบุรี'),
-(16, 'มาลี', 'สิริวัฒน์', '089-111-2216', 'malee.s@example.com', 'Standard', '99', 'ถนนคนเดินท่าแพ', 'เมืองเชียงราย', 'เวียง', 'เชียงราย'),
-(17, 'ไกรสร', 'ภูมิพัฒน์', '089-111-2217', 'kraisorn.p@example.com', 'Suite', '2', 'วิภาวดีรังสิต', 'หลักสี่', 'ทุ่งสองห้อง', 'กรุงเทพมหานคร'),
-(18, 'ปิยะนุช', 'ชัยมงคล', '089-111-2218', 'piyanuch.c@example.com', 'Family', '73/9', 'ทางหลวง 304', 'เมืองปราจีนบุรี', 'หน้าเมือง', 'ปราจีนบุรี'),
-(19, 'เจษฎา', 'อินทรวงศ์', '089-111-2219', 'jesada.i@example.com', 'Suite', '40', 'พัทยากลาง', 'บางละมุง', 'หนองปรือ', 'ชลบุรี'),
-(20, 'สิริพร', 'มณีรัตน์', '089-111-2220', 'siriporn.m@example.com', 'Standard', '18/2', 'ประชาสำราญ', 'เมืองอุดรธานี', 'หมากแข้ง', 'อุดรธานี');
+(1, 'Anucha', 'Pongpaiboon', '089-111-2201', 'anucha.p@example.com', 'Standard', '25/8', 'Sukhumvit', 'Watthana', 'Khlong Tan Nuea', 'Bangkok'),
+(2, 'Sudarat', 'Mankong', '089-111-2202', 'sudarat.m@example.com', 'Deluxe', '112', 'Ratchadaphisek', 'Din Daeng', 'Din Daeng', 'Bangkok'),
+(3, 'Prasert', 'Wongsawat', '089-111-2203', 'prasert.w@example.com', 'Family', '9/1', 'Nimmanhaemin', 'Mueang Chiang Mai', 'Suthep', 'Chiang Mai'),
+(4, 'Chonticha', 'Kasemsuk', '089-111-2204', 'chonticha.k@example.com', 'Standard', '77', 'Mittraphap', 'Mueang Khon Kaen', 'Nai Mueang', 'Khon Kaen'),
+(5, 'Teerapong', 'Suwanchat', '089-111-2205', 'teerapong.s@example.com', 'Suite', '3/12', 'Rama IV', 'Khlong Toei', 'Khlong Toei', 'Bangkok'),
+(6, 'Kamonwan', 'Sriudom', '089-111-2206', 'kamonwan.s@example.com', 'Deluxe', '58', 'Walking Street', 'Mueang Phuket', 'Talat Yai', 'Phuket'),
+(7, 'Weera', 'Thonglor', '089-111-2207', 'weera.t@example.com', 'Standard', '190/4', 'Silom', 'Bang Rak', 'Silom', 'Bangkok'),
+(8, 'Nantana', 'Jitcharoen', '089-111-2208', 'nantana.j@example.com', 'Deluxe', '21', 'Tha Phae', 'Mueang Chiang Mai', 'Chang Khlan', 'Chiang Mai'),
+(9, 'Sakchai', 'Boonruang', '089-111-2209', 'sakchai.b@example.com', 'Family', '45', 'Phetkasem', 'Hat Yai', 'Hat Yai', 'Songkhla'),
+(10, 'Pornthip', 'Akkaradet', '089-111-2210', 'pornthip.a@example.com', 'Suite', '8', 'Lat Phrao', 'Chatuchak', 'Chom Phon', 'Bangkok'),
+(11, 'Sumet', 'Jaisa-at', '089-111-2211', 'sumet.j@example.com', 'Standard', '132', 'Charoen Krung', 'Bang Kho Laem', 'Bang Kho Laem', 'Bangkok'),
+(12, 'Rattana', 'Poonsin', '089-111-2212', 'rattana.p@example.com', 'Deluxe', '67/3', 'Chang Khlan', 'Mueang Chiang Mai', 'Chang Khlan', 'Chiang Mai'),
+(13, 'Nattawut', 'Phetcharat', '089-111-2213', 'nattawut.p@example.com', 'Family', '14', 'Ratchadamnoen', 'Phra Nakhon', 'Bowon Niwet', 'Bangkok'),
+(14, 'Onanong', 'Sinthuphan', '089-111-2214', 'onanong.s@example.com', 'Suite', '301', 'Maharat', 'Mueang Nakhon Ratchasima', 'Nai Mueang', 'Nakhon Ratchasima'),
+(15, 'Panupong', 'Khongcharoen', '089-111-2215', 'panupong.k@example.com', 'Deluxe', '5/6', 'Chaeng Watthana', 'Pak Kret', 'Bang Phut', 'Nonthaburi'),
+(16, 'Malee', 'Siriwat', '089-111-2216', 'malee.s@example.com', 'Standard', '99', 'Tha Phae Walking Street', 'Mueang Chiang Rai', 'Wiang', 'Chiang Rai'),
+(17, 'Kraisorn', 'Phumiphat', '089-111-2217', 'kraisorn.p@example.com', 'Suite', '2', 'Vibhavadi Rangsit', 'Lak Si', 'Thung Song Hong', 'Bangkok'),
+(18, 'Piyanuch', 'Chaimongkol', '089-111-2218', 'piyanuch.c@example.com', 'Family', '73/9', 'Highway 304', 'Mueang Prachin Buri', 'Na Mueang', 'Prachin Buri'),
+(19, 'Jesada', 'Inthrawong', '089-111-2219', 'jesada.i@example.com', 'Suite', '40', 'Pattaya Klang', 'Bang Lamung', 'Nong Prue', 'Chon Buri'),
+(20, 'Siriporn', 'Maneerat', '089-111-2220', 'siriporn.m@example.com', 'Standard', '18/2', 'Prachasamran', 'Mueang Udon Thani', 'Mak Khaeng', 'Udon Thani');
 
 -- 4) room (room_status: Available / Occupied / Maintenance / Cleaning)
 INSERT INTO room (room_id, room_number, price_per_night, room_type, room_status) VALUES
@@ -114,7 +115,7 @@ INSERT INTO booking (booking_id, check_in_date, check_out_date, total_amount, bo
 (19, '2026-10-10', '2026-10-12', 11000.00, 'Confirmed', 'Partial', 19, 5),
 (20, '2026-10-15', '2026-10-18', 10800.00, 'Confirmed', 'Pending', 20, 6);
 
--- 6) booking_room (การจองหลายห้อง: booking 4, 8, 15, 18, 20)
+-- 6) booking_room (multi-room bookings: 4, 8, 15, 18, 20)
 INSERT INTO booking_room (booking_room_id, rate_charged, booking_id, room_id) VALUES
 (1, 1200.00, 1, 1),
 (2, 1800.00, 2, 6),
@@ -145,21 +146,21 @@ INSERT INTO booking_room (booking_room_id, rate_charged, booking_id, room_id) VA
 
 -- 7) service
 INSERT INTO service (service_id, description, charged_amount, booking_id) VALUES
-(1, 'อาหารเช้าเพิ่ม 2 ที่', 300.00, 2),
-(2, 'บริการซักรีด', 250.00, 3),
-(3, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 5),
-(4, 'มินิบาร์', 450.00, 5),
-(5, 'นวดแผนไทย 1 ชั่วโมง x 2 ท่าน', 1200.00, 10),
-(6, 'บริการซักรีด', 180.00, 6),
-(7, 'อาหารเช้าเพิ่ม 2 ที่', 300.00, 8),
-(8, 'เตียงเสริม', 500.00, 4),
-(9, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 12),
-(10, 'มินิบาร์', 350.00, 13),
-(11, 'บริการซักรีด', 200.00, 14),
-(12, 'นวดแผนไทย 1 ชั่วโมง', 1000.00, 14),
-(13, 'อาหารเช้าเพิ่ม 4 ที่', 400.00, 15),
-(14, 'เช่ามอเตอร์ไซค์ 1 วัน', 300.00, 1),
-(15, 'รถรับส่งสนามบินเชียงใหม่', 800.00, 11);
+(1, 'Extra breakfast for 2', 300.00, 2),
+(2, 'Laundry service', 250.00, 3),
+(3, 'Chiang Mai airport transfer', 800.00, 5),
+(4, 'Minibar', 450.00, 5),
+(5, 'Thai massage, 1 hour x 2 guests', 1200.00, 10),
+(6, 'Laundry service', 180.00, 6),
+(7, 'Extra breakfast for 2', 300.00, 8),
+(8, 'Extra bed', 500.00, 4),
+(9, 'Chiang Mai airport transfer', 800.00, 12),
+(10, 'Minibar', 350.00, 13),
+(11, 'Laundry service', 200.00, 14),
+(12, 'Thai massage, 1 hour', 1000.00, 14),
+(13, 'Extra breakfast for 4', 400.00, 15),
+(14, 'Motorbike rental, 1 day', 300.00, 1),
+(15, 'Chiang Mai airport transfer', 800.00, 11);
 
 -- 8) payment (payment_method: Credit Card / Cash / Bank Transfer / PromptPay)
 INSERT INTO payment (payment_id, payment_date, payment_method, amount, booking_id) VALUES
@@ -182,7 +183,7 @@ INSERT INTO payment (payment_id, payment_date, payment_method, amount, booking_i
 (17, '2026-09-20 11:45:00', 'Bank Transfer', 5000.00, 17),
 (18, '2026-09-22 13:20:00', 'PromptPay', 3000.00, 19);
 
--- 9) billing (1 การจอง : 1 ใบแจ้งหนี้ | total_amount = ค่าห้อง + ค่าบริการเสริม)
+-- 9) billing (one invoice per booking | total_amount = room charges + extra services)
 INSERT INTO billing (billing_id, invoice_date, total_amount, booking_id) VALUES
 (1, '2026-09-03 11:45:00', 2700.00, 1),
 (2, '2026-09-05 13:20:00', 5700.00, 2),
