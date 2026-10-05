@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     axios.get('http://localhost:4000/api/guests')
-      .then(res => setStatus(`Backend connected! Found ${res.data.length} guests.`))
+      .then(res => setStatus(`Backend connected! Found ${res.data.data.length} guests.`))
       .catch(err => setStatus(` Cannot reach backend: ${err.message}`));
   }, []);
 
