@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import {
-  FaHotel,
   FaHome,
   FaCalendarAlt,
   FaUsers,
@@ -9,32 +8,33 @@ import {
   FaBell,
   FaCalendarDay
 } from 'react-icons/fa';
+import logo from '../assets/lanna-doi-logo.png';   // Your logo
 
 function TopBar() {
   return (
     <header style={{
-      background: 'linear-gradient(90deg, #1e3a2f 0%, #2d5a47 100%)',
-      color: 'white',
+      background: '#f2e9d8',              // ← Cream background (matches logo)
+      color: '#1e3a2f',                   // ← Dark green text
+      borderBottom: '3px solid #b85c38',  // ← Terracotta accent line
       padding: '12px 24px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <FaHotel size={28} color="#f59e0b" />
-          <div>
-            <h2 style={{ margin: 0, fontSize: '18px', letterSpacing: '1px' }}>
-              LANNA DOI
-            </h2>
-            <p style={{ margin: 0, fontSize: '9px', opacity: 0.7, letterSpacing: '2px' }}>
-              HOTEL MANAGEMENT
-            </p>
-          </div>
-        </div>
 
-        <nav style={{ display: 'flex', gap: '20px', marginLeft: '30px' }}>
+        {/* Logo */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src={logo}
+            alt="Lanna Doi Hotel Management"
+            style={{ height: '52px', width: 'auto' }}
+          />
+        </Link>
+
+        {/* Navigation */}
+        <nav style={{ display: 'flex', gap: '8px', marginLeft: '20px' }}>
           <NavLink to="/" icon={<FaHome />} label="Dashboard" />
           <NavLink to="/bookings" icon={<FaCalendarAlt />} label="Reservations" />
           <NavLink to="/guests" icon={<FaUsers />} label="Guests" />
@@ -43,15 +43,30 @@ function TopBar() {
         </nav>
       </div>
 
+      {/* Right Side */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <span style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <span style={{
+          fontSize: '13px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          color: '#4a4a4a'
+        }}>
           <FaCalendarDay /> {new Date().toDateString()}
         </span>
-        <FaBell size={18} style={{ cursor: 'pointer' }} />
+        <FaBell
+          size={18}
+          style={{ cursor: 'pointer', color: '#b85c38' }}
+        />
         <div style={{
-          width: '36px', height: '36px', borderRadius: '50%',
-          background: '#f59e0b', display: 'flex',
-          alignItems: 'center', justifyContent: 'center',
+          width: '36px',
+          height: '36px',
+          borderRadius: '50%',
+          background: '#b85c38',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           fontWeight: 'bold'
         }}>A</div>
       </div>
@@ -61,17 +76,22 @@ function TopBar() {
 
 function NavLink({ to, icon, label }) {
   return (
-    <Link to={to} style={{
-      color: 'white',
-      textDecoration: 'none',
-      fontSize: '13px',
-      opacity: 0.85,
-      padding: '6px 10px',
-      borderRadius: '6px',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px'
-    }}>
+    <Link
+      to={to}
+      style={{
+        color: '#1e3a2f',
+        textDecoration: 'none',
+        fontSize: '13px',
+        padding: '6px 12px',
+        borderRadius: '6px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        transition: 'background 0.15s'
+      }}
+      onMouseEnter={e => e.currentTarget.style.background = '#e5d9c0'}
+      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+    >
       {icon} {label}
     </Link>
   );

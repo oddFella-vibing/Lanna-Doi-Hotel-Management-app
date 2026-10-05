@@ -11,7 +11,7 @@ function Dashboard() {
         gridTemplateColumns: '1fr 320px',
         gap: '20px',
         padding: '20px',
-        background: '#f5f6f7',
+        background: '#faf7f0',
         minHeight: 'calc(100vh - 70px)'
       }}>
         <div style={{

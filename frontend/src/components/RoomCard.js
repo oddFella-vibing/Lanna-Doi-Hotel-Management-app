@@ -2,11 +2,11 @@ import { FaBed, FaCheckCircle, FaBroom, FaTools, FaUser } from 'react-icons/fa';
 
 function RoomCard({ room }) {
   const styles = {
-    Available:   { bg: '#e8f5e9', border: '#a5d6a7', color: '#1b5e20', dot: '#4caf50', Icon: FaCheckCircle },
-    Occupied:    { bg: '#1e3a2f', border: '#1e3a2f', color: '#ffffff', dot: '#ffd54f', Icon: FaBed },
-    Cleaning:    { bg: '#fff3e0', border: '#ffcc80', color: '#e65100', dot: '#ff9800', Icon: FaBroom },
-    Maintenance: { bg: '#eceff1', border: '#b0bec5', color: '#455a64', dot: '#78909c', Icon: FaTools },
-  };
+  Available:   { bg: '#e8f0e8', border: '#a5d6a7', color: '#1e3a2f', dot: '#2d5a47', Icon: FaCheckCircle },
+  Occupied:    { bg: '#1e3a2f', border: '#1e3a2f', color: '#f2e9d8', dot: '#b85c38', Icon: FaBed },
+  Cleaning:    { bg: '#f9e4d8', border: '#e6a37c', color: '#b85c38', dot: '#b85c38', Icon: FaBroom },
+  Maintenance: { bg: '#eceff1', border: '#b0bec5', color: '#455a64', dot: '#78909c', Icon: FaTools },
+};
   const s = styles[room.status] || styles.Available;
   const StatusIcon = s.Icon;
 
