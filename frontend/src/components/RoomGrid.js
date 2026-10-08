@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getRooms } from '../services/api';
 import { FaSearch, FaThLarge, FaList } from 'react-icons/fa';
 import RoomCard from './RoomCard';
 
@@ -11,7 +11,7 @@ function RoomGrid() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/rooms')
+    getRooms()
       .then(res => {
         const data = res.data.data ?? res.data;
         setRooms(data);
@@ -27,7 +27,7 @@ function RoomGrid() {
 
   const filtered = rooms.filter(r => {
     if (selectedFloor !== 'All Floors' && String(r.floor) !== String(selectedFloor)) return false;
-    if (selectedStatus !== 'All Status' && r.status !== selectedStatus) return false;
+    if (selectedStatus !== 'All Status' && r.room_status !== selectedStatus) return false;
     if (search && !r.room_number.toString().includes(search)) return false;
     return true;
   });

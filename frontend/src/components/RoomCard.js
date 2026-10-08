@@ -7,7 +7,7 @@ function RoomCard({ room }) {
   Cleaning:    { bg: '#f9e4d8', border: '#e6a37c', color: '#b85c38', dot: '#b85c38', Icon: FaBroom },
   Maintenance: { bg: '#eceff1', border: '#b0bec5', color: '#455a64', dot: '#78909c', Icon: FaTools },
 };
-  const s = styles[room.status] || styles.Available;
+  const s = styles[room.room_status] || styles.Available;
   const StatusIcon = s.Icon;
 
   return (
@@ -35,10 +35,10 @@ function RoomCard({ room }) {
         fontSize: '11px', color: s.color
       }}>
         <StatusIcon size={12} />
-        {room.status}
+        {room.room_status}
       </div>
 
-      {room.status === 'Occupied' && room.guest_name && (
+      {room.room_status === 'Occupied' && room.guest_name && (
         <div style={{ fontSize: '10px', opacity: 0.9, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
           <FaUser size={9} /> {room.guest_name}
         </div>

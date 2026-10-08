@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Standard hover effect for unselected rows only */
+.guest-row:not(.selected):hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+.guest-row:not(.selected):hover .guest-name,
+.guest-row:not(.selected):hover .guest-email,
+.guest-row:not(.selected):hover .guest-id {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.guest-row:not(.selected):hover .guest-avatar {
+  background: #2d5a47 !important;
+  color: #ffffff !important;
+}

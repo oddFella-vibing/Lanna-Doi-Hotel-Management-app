@@ -1,3 +1,23 @@
+:root {
+  /* --- Lanna Doi Boutique Palette --- */
+  --lanna-primary: #1e3a2f;       /* Deep Teak / Forest Green (Primary Brand & Active State) */
+  --lanna-primary-hover: #2d5a47; /* Lighter Forest Accent for Hover/Highlights */
+  
+  --lanna-terracotta: #b85c38;    /* Warm Terracotta / Clay Accent (Highlights & Badges) */
+  --lanna-gold: #d4af37;          /* Subtle Lanna Golden Accent */
+
+  --lanna-bg-main: #fcfbfa;       /* Soft Alabaster / Cream Background */
+  --lanna-bg-surface: #ffffff;    /* Card & Panel Surface White */
+  --lanna-bg-subtle: #f5efe6;     /* Light Warm Gray/Beige for Muted Containers */
+  --lanna-bg-alt: #e6dfd1;        /* Secondary Border/Avatar Fill Tone */
+
+  --lanna-border: #eae5d9;        /* Soft Divider and Border Stroke */
+  --lanna-border-dark: #dcd6c8;   /* Input and Active Borders */
+
+  --lanna-text-main: #2d3748;     /* Primary Charcoal Body Text */
+  --lanna-text-muted: #666666;    /* Secondary Subdued Text / Descriptions */
+  --lanna-text-light: #888888;    /* Muted Labels & IDs */
+}
 * {
   box-sizing: border-box;
 }

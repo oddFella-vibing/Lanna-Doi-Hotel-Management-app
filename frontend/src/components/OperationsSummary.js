@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getRooms } from '../services/api';
 import { FaBed, FaCheckCircle, FaBroom, FaTools } from 'react-icons/fa';
 
 function OperationsSummary() {
@@ -8,12 +8,13 @@ function OperationsSummary() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/rooms')
+    getRooms()
       .then(res => {
         const rooms = res.data.data ?? res.data;
         const counts = { occupied: 0, available: 0, cleaning: 0, maintenance: 0 };
+        console.log('Fetched rooms:', rooms); // Debugging line
         rooms.forEach(r => {
-          const s = (r.status || '').toLowerCase();
+          const s = (r.room_status || '').toLowerCase();
           if (s === 'occupied') counts.occupied++;
           else if (s === 'available') counts.available++;
           else if (s === 'cleaning') counts.cleaning++;
