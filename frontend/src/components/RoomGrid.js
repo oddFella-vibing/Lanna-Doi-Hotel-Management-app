@@ -10,6 +10,11 @@ function RoomGrid() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Simple alert for now — replace with a modal later
+const handleRoomClick = (room) => {
+  alert(`Guest: ${room.guest_name || 'Unknown'}\nRoom: ${room.room_number}\nStatus: ${room.room_status}`);
+};
+
   useEffect(() => {
     getRooms()
       .then(res => {
@@ -61,14 +66,20 @@ function RoomGrid() {
       </div>
 
       {loading ? <p>Loading rooms...</p> : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-          gap: '12px'
-        }}>
-          {filtered.map(room => <RoomCard key={room.room_id} room={room} />)}
-        </div>
-      )}
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+    gap: '12px'
+  }}>
+    {filtered.map(room => (
+      <RoomCard
+        key={room.room_id}
+        room={room}
+        onClick={handleRoomClick}      // ← Pass the handler
+      />
+    ))}
+  </div>
+)}
     </div>
   );
 }
