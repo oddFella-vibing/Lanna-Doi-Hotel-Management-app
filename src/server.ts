@@ -12,6 +12,7 @@ import bookingRoutes from "./routes/bookingRoutes";
 import paymentRoutes from "./routes/paymentRoutes";
 import housekeepinglogRoutes from "./routes/housekeepingLogRoutes";
 import billingRoutes from "./routes/billingRoutes";
+import reportRoutes from "./routes/reportRoutes";
 
 // Import database connection pool
 import db from "./config/database";
@@ -38,6 +39,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/housekeepinglogs", housekeepinglogRoutes);
 app.use("/api/billings", billingRoutes);
+app.use("/api/reports", reportRoutes);
 
 // Basic health check route
 app.get("/api/health", async (req: Request, res: Response) => {
