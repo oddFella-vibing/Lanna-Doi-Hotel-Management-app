@@ -1,0 +1,8 @@
+export const cardStyle = { background: 'var(--lanna-bg-surface)', border: '1px solid var(--lanna-border)', borderRadius: '8px', padding: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' };
+export const cardTitleStyle = { fontSize: '13px', fontWeight: '600', color: 'var(--lanna-primary)', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '6px' };
+export const labelStyle = { fontSize: '10px', color: 'var(--lanna-text-muted)', display: 'block', marginBottom: '2px', fontWeight: '600' };
+export const inputStyle = { width: '100%', padding: '7px 10px', borderRadius: '4px', border: '1px solid var(--lanna-border-dark)', fontSize: '11px', outline: 'none', background: 'white', boxSizing: 'border-box' };
+export const submitBtnStyle = { background: 'var(--lanna-primary)', color: 'white', border: 'none', borderRadius: '4px', padding: '8px', fontSize: '11px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', width: '100%', marginTop: '6px' };
+export const tabStyle = { background: 'none', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '11px', fontWeight: '600', cursor: 'pointer', color: 'var(--lanna-text-muted)', display: 'flex', alignItems: 'center', gap: '6px' };
+export const activeTabStyle = { ...tabStyle, background: 'var(--lanna-primary)', color: 'white' };
+export const itemStyle = { background: 'var(--lanna-bg-subtle)', border: '1px solid var(--lanna-border)', borderRadius: '6px', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getBookings, updateBooking, updateGuest } from "../services/api";
+import { getBookings, updateBooking, updateGuest } from "../../services/api";
+import { useNotification } from "../NotificationProvider";
 import GuestServices from "./GuestServices";
 
 import {
@@ -15,6 +16,7 @@ import {
 } from "react-icons/fa";
 
 export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
+  const notify = useNotification();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
   const [guestHistory, setGuestHistory] = useState([]);
@@ -42,6 +44,7 @@ export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
       getBookings()
         .then((res) => {
           const bookings = res.data.data ?? res.data;
+          
           // Filter specifically for this guest if backend returns all bookings
           const guestBookings = Array.isArray(bookings)
             ? bookings.filter(
@@ -70,8 +73,12 @@ export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
       .then(() => {
         onUpdateGuest({ ...selectedGuest, ...formData });
         setIsEditing(false);
+        notify("Guest details updated successfully.");
       })
-      .catch((err) => console.error("Failed to update guest:", err));
+      .catch((err) => {
+        console.error("Failed to update guest:", err);
+        notify(err.response?.data?.message || "Failed to update guest.", "error");
+      });
   };
   // Add status updater handler inside GuestDetailPanel
   const handleUpdateBookingStatus = (
@@ -80,9 +87,9 @@ export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
     newPaymentStatus,
   ) => {
     updateBooking(bookingId, {
-        booking_status: newBookingStatus,
-        payment_status: newPaymentStatus,
-      })
+      booking_status: newBookingStatus,
+      payment_status: newPaymentStatus,
+    })
       .then(() => {
         // Refresh local bookings list
         setGuestHistory((prev) =>
@@ -96,8 +103,15 @@ export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
               : b,
           ),
         );
+        notify("Booking details updated successfully.");
       })
-      .catch((err) => console.error("Failed to update booking status:", err));
+      .catch((err) => {
+        console.error("Failed to update booking status:", err);
+        notify(
+          err.response?.data?.message || "Failed to update booking.",
+          "error",
+        );
+      });
   };
   if (!selectedGuest) {
     return (
@@ -566,6 +580,33 @@ export default function GuestDetailPanel({ selectedGuest, onUpdateGuest }) {
                   style={{ fontSize: "11px", color: "#666", marginTop: "4px" }}
                 >
                   Amount Due: ฿{b.total_amount}
+                </div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#666",
+                    marginTop: "5px",
+                  }}
+                >
+                  Stay: {b.check_in_date?.substring(0, 10) || "—"} to{" "}
+                  {b.check_out_date?.substring(0, 10) || "—"}
+                </div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#666",
+                    marginTop: "4px",
+                  }}
+                >
+                  {b.booking_status === "Checked-In"
+                    ? "Current room(s): "
+                    : "Room(s): "}
+                  {Array.isArray(b.rooms) && b.rooms.length > 0
+                    ? b.rooms
+                        .map((room) => room.room_number)
+                        .filter(Boolean)
+                        .join(", ") || "Not assigned"
+                    : "Not assigned"}
                 </div>
               </div>
             ))

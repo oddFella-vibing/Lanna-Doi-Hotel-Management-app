@@ -6,7 +6,8 @@ import {
   FaBed,
   FaChartBar,
   FaBell,
-  FaCalendarDay
+  FaCalendarDay,
+  FaConciergeBell
 } from 'react-icons/fa';
 import logo from '../assets/lanna-doi-logo.png';   // Your logo
 
@@ -40,6 +41,7 @@ function TopBar() {
           <NavLink to="/guests" icon={<FaUsers />} label="Guests" />
           <NavLink to="/rooms" icon={<FaBed />} label="Rooms" />
           <NavLink to="/reports" icon={<FaChartBar />} label="Reports" />
+          <NavLink to="/employee-housekeeping" icon={<FaConciergeBell />} label="Staff & Housekeeping" />
         </nav>
       </div>
 
