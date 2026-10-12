@@ -35,12 +35,14 @@ export const ReportModel = {
 
     // Occupancy today
     const [occupancyRows] = await pool.query<RowDataPacket[]>(
-      `SELECT COUNT(DISTINCT br.room_id) AS occupied_rooms
-       FROM booking_room br
-       JOIN booking b ON b.booking_id = br.booking_id
-       WHERE b.booking_status = 'Checked-In'
-         AND CURDATE() BETWEEN b.check_in_date AND b.check_out_date`
-    );
+  `SELECT COUNT(DISTINCT br.room_id) AS occupied_rooms
+   FROM booking_room br
+   JOIN booking b ON b.booking_id = br.booking_id
+   WHERE b.booking_status = 'Checked-In'
+     AND YEAR(b.check_in_date) = ?
+     AND MONTH(b.check_in_date) = ?`,
+  [year, paddedMonth]
+);
 
     // Daily revenue for chart
     const [dailyRows] = await pool.query<RowDataPacket[]>(

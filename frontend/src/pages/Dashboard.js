@@ -1,6 +1,7 @@
 import TopBar from '../components/TopBar';
 import RoomGrid from '../components/RoomGrid';
 import OperationsSummary from '../components/OperationsSummary';
+import BusinessQuestions from '../components/BusinessQuestions';
 
 function Dashboard() {
   return (
@@ -51,6 +52,7 @@ function Dashboard() {
         {/* RIGHT: Operations Summary */}
         <div>
           <OperationsSummary />
+          <BusinessQuestions />
         </div>
       </div>
     </>

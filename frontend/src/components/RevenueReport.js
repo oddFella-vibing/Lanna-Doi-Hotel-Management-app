@@ -14,8 +14,8 @@ function RevenueReport() {
   const [error, setError] = useState(null);
 
   const now = new Date();
-  const [year, setYear] = useState(now.getFullYear());
-  const [month, setMonth] = useState(now.getMonth() + 1);
+  const [year, setYear] = useState(2026);
+const [month, setMonth] = useState(9);   // September
 
   const fetchData = () => {
     setLoading(true);
@@ -157,51 +157,51 @@ function RevenueReport() {
           Daily Revenue — {months[month - 1]} {year}
         </h3>
 
-        {data.daily_revenue.length === 0 ? (
-          <p style={{ color: '#999', fontSize: '13px' }}>
-            No payments recorded this month.
-          </p>
-        ) : (
-          <div style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            gap: '6px',
-            height: '200px',
-            paddingBottom: '20px',
-            borderBottom: '1px solid #e5d9c0'
-          }}>
-            {data.daily_revenue.map((day, i) => {
-              const height = (Number(day.revenue) / maxRevenue) * 100;
-              return (
-                <div key={i} style={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '4px'
-                }}>
-                  <div
-                    title={`฿${Number(day.revenue).toLocaleString()}`}
-                    style={{
-                      width: '100%',
-                      background: 'linear-gradient(180deg, #2d5a47, #1e3a2f)',
-                      height: `${height}%`,
-                      minHeight: '4px',
-                      borderRadius: '4px 4px 0 0',
-                      cursor: 'pointer',
-                      transition: 'opacity 0.15s'
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                  />
-                  <span style={{ fontSize: '9px', color: '#999' }}>
-                    {new Date(day.date).getDate()}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <div style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          gap: '6px',
+          height: '180px',
+          paddingTop: '10px'
+        }}>
+          {data.daily_revenue.map((day, i) => {
+            const value = Number(day.revenue);
+            const heightPercent = value > 0 ? Math.max((value / maxRevenue) * 100, 5) : 0;
+
+            return (
+              <div key={i} style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: '4px',
+                height: '100%'
+              }}>
+                <div
+                  title={`฿${value.toLocaleString()}`}
+                  style={{
+                    width: '100%',
+                    background: value > 0
+                      ? 'linear-gradient(180deg, #2d5a47, #1e3a2f)'
+                      : '#e5d9c0',
+                    height: `${heightPercent}%`,
+                    minHeight: value > 0 ? '8px' : '2px',
+                    borderRadius: '4px 4px 0 0',
+                    cursor: value > 0 ? 'pointer' : 'default',
+                    transition: 'opacity 0.15s'
+                  }}
+                  onMouseEnter={(e) => value > 0 && (e.currentTarget.style.opacity = '0.7')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                />
+                <span style={{ fontSize: '9px', color: '#999' }}>
+                  {new Date(day.date).getDate()}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
