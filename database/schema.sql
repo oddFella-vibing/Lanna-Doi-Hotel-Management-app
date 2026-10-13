@@ -79,6 +79,7 @@ CREATE TABLE booking (
     payment_status VARCHAR(30) NOT NULL DEFAULT 'Pending',
     guest_id INT NOT NULL,
     employee_id INT NULL, -- Receptionist who processed the booking (Optional 0..1)
+    CONSTRAINT chk_check_out_after_in CHECK (check_out_date > check_in_date),
     FOREIGN KEY (guest_id) REFERENCES guest(guest_id),
     FOREIGN KEY (employee_id) REFERENCES receptionist(employee_id)
 );

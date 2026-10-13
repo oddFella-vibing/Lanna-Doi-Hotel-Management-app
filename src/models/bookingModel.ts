@@ -5,7 +5,10 @@ export interface Booking {
   booking_id?: number;
   check_in_date: string;
   check_out_date: string;
+  booking_status?: "Confirmed" | "Checked-In" | "Checked-Out" | "Cancelled";
+  /** Legacy alias; prefer booking_status in API requests. */
   status?: "Confirmed" | "Checked-In" | "Checked-Out" | "Cancelled";
+  payment_status?: "Pending" | "Paid" | "Refunded";
   total_amount?: number;
   guest_id: number;
   employee_id: number;
@@ -188,7 +191,7 @@ export const BookingModel = {
       const numberOfNights = validateDateRange(check_in_date, check_out_date);
       const roomIds = validateRoomIds(room_ids);
       const validatedServices = validateServices(services);
-      const bookingStatus = status || "Confirmed";
+      const bookingStatus = bookingData.booking_status || status || "Confirmed";
 
       if (
         !Number.isInteger(guest_id) ||
@@ -314,14 +317,34 @@ export const BookingModel = {
       await connection.beginTransaction();
       transactionStarted = true;
 
-      const { check_in_date, check_out_date, status, guest_id, employee_id } =
-        bookingData;
+      const {
+        check_in_date,
+        check_out_date,
+        booking_status,
+        status,
+        payment_status,
+        guest_id,
+        employee_id,
+      } = bookingData;
+      if (
+        booking_status !== undefined &&
+        status !== undefined &&
+        booking_status !== status
+      ) {
+        throw new BookingError(
+          400,
+          "Provide only one consistent booking status value.",
+        );
+      }
+      const requestedBookingStatus = booking_status ?? status;
       const unsupportedKeys = Object.keys(bookingData).filter(
         (key) =>
           ![
             "check_in_date",
             "check_out_date",
+            "booking_status",
             "status",
+            "payment_status",
             "guest_id",
             "employee_id",
           ].includes(key),
@@ -356,8 +379,17 @@ export const BookingModel = {
         );
       }
 
-      if (status !== undefined && !bookingStatuses.includes(status)) {
+      if (
+        requestedBookingStatus !== undefined &&
+        !bookingStatuses.includes(requestedBookingStatus)
+      ) {
         throw new BookingError(400, "Invalid booking status.");
+      }
+      if (
+        payment_status !== undefined &&
+        !["Pending", "Paid", "Refunded"].includes(payment_status)
+      ) {
+        throw new BookingError(400, "Invalid payment status.");
       }
 
       const effectiveCheckIn =
@@ -413,9 +445,13 @@ export const BookingModel = {
         fields.push("check_out_date = ?");
         values.push(check_out_date);
       }
-      if (status !== undefined) {
+      if (requestedBookingStatus !== undefined) {
         fields.push("booking_status = ?");
-        values.push(status);
+        values.push(requestedBookingStatus);
+      }
+      if (payment_status !== undefined) {
+        fields.push("payment_status = ?");
+        values.push(payment_status);
       }
       if (guest_id !== undefined) {
         fields.push("guest_id = ?");
